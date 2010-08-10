@@ -1,3 +1,5 @@
+set nocompatible
+call pathogen#runtime_append_all_bundles()
 " pretraga
 set incsearch
 set ignorecase
