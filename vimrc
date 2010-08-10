@@ -9,7 +9,6 @@ set hidden
 set cindent
 set smartindent
 set autoindent
-
 set expandtab " pretvara tab u pauze
 filetype plugin on
 set linebreak
