@@ -1,0 +1,15 @@
+:Hoogle	Hoogle.txt	/*:Hoogle*
+:HoogleClose	Hoogle.txt	/*:HoogleClose*
+:HoogleLine	Hoogle.txt	/*:HoogleLine*
+Hoogle	Hoogle.txt	/*Hoogle*
+HoogleClose	Hoogle.txt	/*HoogleClose*
+HoogleLine	Hoogle.txt	/*HoogleLine*
+g:hoogle_search_buf_name	Hoogle.txt	/*g:hoogle_search_buf_name*
+g:hoogle_search_count	Hoogle.txt	/*g:hoogle_search_count*
+hoogle	Hoogle.txt	/*hoogle*
+hoogle.txt	Hoogle.txt	/*hoogle.txt*
+hoogle_search_buf_name	Hoogle.txt	/*hoogle_search_buf_name*
+hoogle_search_count	Hoogle.txt	/*hoogle_search_count*
+hooglecommands	Hoogle.txt	/*hooglecommands*
+hoogleconfiguration	Hoogle.txt	/*hoogleconfiguration*
+hooglesuggestions	Hoogle.txt	/*hooglesuggestions*

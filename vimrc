@@ -1,4 +1,6 @@
 set nocompatible
+let mapleader = ","
+call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 " pretraga
 set incsearch
@@ -16,6 +18,12 @@ set tabstop=4
 set shiftwidth=4
 set number
 set autochdir
+
+" colorcsheme zenburn cak i za terminal nije toliko lica
+:colorscheme zenburn
+
+" spellcheck
+set spell
 
 "fold zafrkancije
 set foldmethod=syntax
@@ -41,6 +49,9 @@ let g:haddock_browser="/usr/bin/firefox"
 
 " izlazenje iz insert moda sa jk
 inoremap kj <Esc>
+
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
 
 let g:ConqueTerm_TERM='vt100'
 let g:ConqueTerm_ReadUnfocused=1
