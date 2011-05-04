@@ -23,7 +23,7 @@ set autochdir
 :colorscheme zenburn
 
 " spellcheck
-set spell
+" set spell
 
 "fold zafrkancije
 set foldmethod=syntax
@@ -46,6 +46,11 @@ let g:haddock_browser="/usr/bin/firefox"
 " ubacivanje jednog karaktera
 :nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
 :nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
+
+" cuvanje pogleda
+
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
 
 " izlazenje iz insert moda sa jk
 inoremap kj <Esc>
