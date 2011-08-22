@@ -43,6 +43,9 @@ let g:haddock_browser="/usr/bin/firefox"
 " inoremap <Up> <NOP>
 " inoremap <Down> <NOP>
 
+" function keys mapings
+nnoremap <F5> :GundoToggle<CR>
+
 " ubacivanje jednog karaktera
 :nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
 :nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
