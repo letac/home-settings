@@ -56,6 +56,7 @@ au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
 " izlazenje iz insert moda sa jk
+inoremap hg <Esc>
 inoremap kj <Esc>
 
 let g:xml_syntax_folding=1
