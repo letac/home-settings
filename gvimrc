@@ -1,6 +1,6 @@
-set guifont=DejaVu\ Sans\ Mono\ 12
-" :winpos 150 50
-:colorscheme zenburn
+set guifont=DejaVu\ Sans\ Mono\ 10
+set background=light
+colorscheme solarized
 :if filereadable(".vimsetting")
     so .vimsetting
 :endif

@@ -1,7 +1,13 @@
 set nocompatible
 let mapleader = ","
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+
+" vindle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
 " pretraga
 set incsearch
 set ignorecase
@@ -38,10 +44,14 @@ let g:haddock_browser="/usr/bin/firefox"
 " au BufEnter *.hs compiler ghc
 
 " strelice su isljucene
-" inoremap <Left> <NOP>
-" inoremap <Right> <NOP>
-" inoremap <Up> <NOP>
-" inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+
+" hl isljucen
+"nnoremap h <NOP>
+"nnoremap l <NOP>
 
 " function keys mapings
 nnoremap <F5> :GundoToggle<CR>
