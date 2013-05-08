@@ -31,6 +31,9 @@ set autochdir
 " spellcheck
 " set spell
 
+" clipboard settings
+set clipboard=unnamedplus
+
 "fold zafrkancije
 set foldmethod=syntax
 set foldcolumn=3
