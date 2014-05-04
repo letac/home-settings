@@ -5,9 +5,12 @@ let mapleader = ","
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'jimenezrick/vimerl'
+
 " pretraga
 set incsearch
 set ignorecase
