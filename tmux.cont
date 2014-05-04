@@ -1,0 +1,13 @@
+set -g base-index 1
+setw -g pane-base-index 1
+
+set -g prefix C-s
+unbind C-b
+bind C-s send-prefix
+
+bind r source-file ~/.tmux.conf
+
+unbind ^S
+bind ^S select-pane -t :.+
+
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
