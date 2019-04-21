@@ -1,0 +1,11 @@
+URxvt.termName:         rxvt-256color
+
+URxvt.colorBD: white
+URxvt.colorIT: green
+
+URxvt*scrollBar: false
+URxvt.font:     xft:DejaVu Sans Mono:size=12:antialias=true:hinting=true
+URxvt.boldFont:     xft:DejaVu Sans Mono:bold:size=12:antialias=true:hinting=true
+
+URxvt*background.expr: rootalign keep { load "/home/strale/wallpaper/t.jpg" }
+URxvt.perl-ext-common: default,background,selection-to-clipboard,resize-font
