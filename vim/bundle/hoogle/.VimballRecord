@@ -1,1 +1,0 @@
-Hoogle(2).vba: call delete('/home/strale/.vim/bundle/hoogle/plugin/hoogle.vim')|call delete('/home/strale/.vim/bundle/hoogle/doc/Hoogle.txt')
