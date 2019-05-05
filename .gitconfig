@@ -1,3 +1,7 @@
 [user]
 	name = Strahinja Popovic
 	email = stralep@gmail.com
+
+[alias]
+    ci = commit -v
+    st = status
