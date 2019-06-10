@@ -1,3 +1,6 @@
+[core]
+    editor = "nvim"
+
 [user]
 	name = Strahinja Popovic
 	email = stralep@gmail.com
