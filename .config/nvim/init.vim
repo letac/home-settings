@@ -24,11 +24,26 @@ Plug 'airblade/vim-rooter'
 
 Plug 'itchyny/lightline.vim'
 
+" ale {{{
 Plug 'w0rp/ale'
 
+let g:ale_linters = { 'rust': ['rls', 'cargo']}
+let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_rust_cargo_check_tests = 1
+
+" }}}
+
+" rust {{{
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'timonv/vim-cargo'
+
+let g:rustfmt_autosave = 1
+
+let g:racer_cmd = "/home/strale/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+" }}}
+
 " Plugin 'majutsushi/tagbar'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -50,10 +65,21 @@ Plug 'autozimu/LanguageClient-neovim', {
   \ 'do': 'bash install.sh',
   \ }
 
+" ncm2 {{{
+
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-racer'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+set completeopt=noinsert,menuone,noselect
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" }}}
 
 call plug#end()
 filetype plugin indent on
@@ -63,24 +89,8 @@ filetype plugin indent on
 
 " Plug 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
 
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-    " Use <TAB> to select the popup menu:
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-set completeopt=noinsert,menuone,noselect
-
-let g:rustfmt_autosave = 1
-
-let g:ale_linters = { 'rust': ['rls', 'cargo']}
-let g:ale_rust_cargo_check_all_targets = 1
-let g:ale_rust_cargo_check_tests = 1
 
 set laststatus=2
-
-let g:racer_cmd = "/home/strale/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
