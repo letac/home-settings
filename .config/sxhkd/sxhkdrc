@@ -1,0 +1,8 @@
+alt + t
+    urxvt
+
+alt + Return
+    urxvt
+
+alt + d
+    dmenu_run
