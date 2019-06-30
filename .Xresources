@@ -1,5 +1,6 @@
 URxvt.termName:         rxvt-256color
 
+URxvt.foreground: white
 URxvt.colorBD: white
 URxvt.colorIT: green
 
