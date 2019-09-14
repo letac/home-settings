@@ -1,0 +1,64 @@
+command=$SCRIPT_DIR/$BLOCK_NAME
+
+[volume]
+#label=♪
+label=VOL
+interval=once
+signal=10
+#STEP=5%
+
+[memory]
+label=MEM
+separator=false
+interval=30
+
+[memory]
+label=SWAP
+instance=swap
+separator=false
+interval=30
+
+# Disk usage
+#
+# The directory defaults to $HOME if the instance is not specified.
+# The script may be called with a optional argument to set the alert
+# (defaults to 10 for 10%).
+[disk]
+label=HOME
+#DIR=/mnt/data
+interval=30
+
+# Network interface monitoring
+#
+# If the instance is not specified, use the interface used for default route.
+# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
+[iface]
+#IFACE=wlan0
+color=#00FF00
+interval=10
+separator=false
+
+[bandwidth]
+#INTERFACE=eth0
+interval=5
+
+# CPU usage
+#
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+[cpu_usage]
+label=CPU
+interval=10
+min_width=CPU 100.00%
+#separator=false
+
+# Date Time
+#
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=5
+
+# [ip]
+# command=hostname -i | awk '{ print "IP:" $1 }'
+# interval=once
+# color=#91E78B
