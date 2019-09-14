@@ -174,3 +174,6 @@ bar {
 }
 
 exec --no-startup-id feh --bg-scale /home/strale/wallpaper/_C2Qah0T4I3iV39g9BWtZLrurTlt8Z0yEq9oQMSNpQ4.jpg
+
+# Starting apps on a specific workspace
+assign [class="^Firefox$"] $ws2
