@@ -173,7 +173,9 @@ bar {
         status_command SCRIPT_DIR=/run/current-system/sw/libexec/i3blocks/ i3blocks
 }
 
-exec --no-startup-id feh --bg-scale /home/strale/wallpaper/_C2Qah0T4I3iV39g9BWtZLrurTlt8Z0yEq9oQMSNpQ4.jpg
+set $wallpaper /home/strale/wallpaper/NkZHplZC053PUOCSH55ou5zKDPZ3GeG-wdr2Ql5sA1M.jpg
+exec --no-startup-id feh --bg-scale $wallpaper
+exec --no-startup-id blur.sh $wallpaper /home/strale/wallpaper/t.jpg
 
 # Starting apps on a specific workspace
 assign [class="^Firefox$"] $ws2
