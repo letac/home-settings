@@ -11,3 +11,6 @@ unbind ^S
 bind ^S select-pane -t :.+
 
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+set-option -sg escape-time 10
+set-option -g default-terminal "screen-256color"
