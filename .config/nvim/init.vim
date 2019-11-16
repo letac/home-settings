@@ -3,14 +3,16 @@ let mapleader = ","
 filetype off
 filetype plugin indent off
 
-set encoding=utf-8
-set fileencoding=utf-8
+set encoding=utf8
+set fileencoding=utf8
 
 
 " set rtp+=~/.vim/bundle/Vundle.vim
 
-let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+let $NVIM_PYTHON_LOG_FILE="/home/strale/nvim_log"
 let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
+
+
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'benmills/vimux'
@@ -18,109 +20,148 @@ Plug 'tpope/vim-fugitive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jimenezrick/vimerl'
 Plug 'deviantfero/wpgtk.vim'
-" Plugin 'scrooloose/nerdtree'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'airblade/vim-rooter'
 
-Plug 'itchyny/lightline.vim'
-
-" ale {{{
-Plug 'w0rp/ale'
-
-let g:ale_linters = { 'rust': ['rls', 'cargo']}
-let g:ale_rust_cargo_check_all_targets = 1
-let g:ale_rust_cargo_check_tests = 1
-
+" nerdtree {{{
+" Plug 'scrooloose/nerdtree'
+" autocmd vimenter * NERDTree
 " }}}
+
+function! MyCoc()
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+    " Use <TAB> to select the popup menu:
+    inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+endfunction
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+call MyCoc()
+
+Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'airblade/vim-rooter'
+
+" status bar {{{
+Plug 'itchyny/lightline.vim'
+set laststatus=2
+" }}}
+
+function! MyAle()
+    Plug 'w0rp/ale'
+
+    let g:ale_linters = { 'rust': ['rls', 'cargo']}
+    let g:ale_rust_cargo_check_all_targets = 0
+    let g:ale_rust_cargo_check_tests = 0
+    let g:ale_virtualtext_cursor = 1
+    let g:ale_rust_rls_config = {
+        \ 'rust': {
+            \ 'all_targets': 1,
+            \ 'build_on_save': 1,
+            \ 'clippy_preference': 'on'
+        \ }
+    \}
+    let g:ale_open_list = 1
+
+    highlight link ALEWarningSign Todo
+    highlight link ALEErrorSign WarningMsg
+    highlight link ALEVirtualTextWarning Todo
+    highlight link ALEVirtualTextInfo Todo
+    highlight link ALEVirtualTextError WarningMsg
+    highlight ALEError guibg=None
+    highlight ALEWarning guibg=None
+    let g:ale_sign_error = "✖"
+    let g:ale_sign_warning = "⚠"
+    let g:ale_sign_info = "i"
+    let g:ale_sign_hint = "➤" 
+endfunction
+call MyAle()
 
 " rust {{{
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'timonv/vim-cargo'
+" Plug 'racer-rust/vim-racer'
+"Plug 'timonv/vim-cargo'
 
 let g:rustfmt_autosave = 1
 
-let g:racer_cmd = "/home/strale/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
+"let g:racer_experimental_completer = 1
 " }}}
 
-" Plugin 'majutsushi/tagbar'
+" nix {{{
+Plug 'LnL7/vim-nix'
+" }}}
 
+" tagbar {{{
+Plug 'majutsushi/tagbar'
+autocmd VimEnter *.rs nested :TagbarOpen
+" }}}
+
+" fzf {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" }}}
 
 " Plug 'ervandew/supertab'
 
-Plug 'roxma/nvim-yarp'
- " if has('nvim')
-   " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
- " else
-   " Plug 'Shougo/deoplete.nvim'
-   " Plug 'roxma/nvim-yarp'
-   " Plug 'roxma/vim-hug-neovim-rpc'
- " endif
+function! MyDeoplete()
+    Plug 'roxma/nvim-yarp'
+    if has('nvim')
+      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    else
+      Plug 'Shougo/deoplete.nvim'
+      Plug 'roxma/nvim-yarp'
+      Plug 'roxma/vim-hug-neovim-rpc'
+    endif
+    let g:deoplete#enable_at_startup = 1
+endfunction
 
-Plug 'autozimu/LanguageClient-neovim', {
-  \ 'branch': 'next',
-  \ 'do': 'bash install.sh',
-  \ }
+function! MyNcm2()
+    Plug 'ncm2/ncm2'
+    " Plug 'ncm2/ncm2-racer'
+    Plug 'ncm2/ncm2-bufword'
+    Plug 'ncm2/ncm2-path'
 
-" ncm2 {{{
-
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-racer'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-set completeopt=noinsert,menuone,noselect
-
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" }}}
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+endfunction
 
 call plug#end()
 filetype plugin indent on
 
- " let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('smart_case', v:true)
-
-" Plug 'scala/scala-dist', {'rtp': 'tool-support/src/vim'}
-
-
-set laststatus=2
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
-
-" let g:SuperTabDefaultCompletionType = "context"
-
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-autocmd BufWritePost *.rs :silent! exec "make check" | redraw!
-
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 
-" let NERDTreeShowHidden=1
 
-" pretraga
-set incsearch
-set ignorecase
-set smartcase
-set hidden
-" identacija
-set cindent
-set smartindent
-set autoindent
-set expandtab " pretvara tab u pauze
-set linebreak
-set tabstop=4
-set shiftwidth=4
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+endif
 
+function! MySearch()
+    set incsearch
+    set ignorecase
+    set smartcase
+    set hidden
+endfunction
+call MySearch()
+
+function! MyIndenting()
+    set cindent
+    set smartindent
+    set autoindent
+    set expandtab " pretvara tab u pauze
+    set linebreak
+    set tabstop=8
+    set shiftwidth=4
+endfunction
+call MyIndenting()
+
+set ruler
+set cursorline
 set number relativenumber
 
 " set autochdir
@@ -138,18 +179,14 @@ set directory=~/vimtmp,.
 " clipboard settings
 set clipboard=unnamedplus
 
-"clang-format
-" map <C-I> :py3f ~/bin/clang-format.py<cr>
-" imap <C-I> <c-o>:py3f ~/bin/clang-format.py<cr>
-
-"fold zafrkancije
-set foldmethod=syntax
-set foldcolumn=3
-set nofoldenable
-nnoremap <space> za
+function! MyFold()
+    set foldcolumn=3
+    set nofoldenable
+    nnoremap <space> za
+endfunction
 
 set path+=**
-set wildmenu
+" set wildmenu
 
 set enc=utf-8
 set tags+=$HOME/.vim/tags/cpp 
@@ -168,13 +205,6 @@ inoremap <Down> <NOP>
 "nnoremap h <NOP>
 "nnoremap l <NOP>
 
-" function keys mapings
-" nnoremap <F5> :GundoToggle<CR>
-
-" ubacivanje jednog karaktera
-":nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
-":nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
-
 " cuvanje pogleda
 
 " au BufWinLeave * mkview
@@ -183,6 +213,9 @@ inoremap <Down> <NOP>
 " izlazenje iz insert moda sa jk
 inoremap hg <Esc>
 inoremap kj <Esc>
+
+" tabs
+nnoremap <Tab> gt
 
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
