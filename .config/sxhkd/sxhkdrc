@@ -5,4 +5,27 @@ alt + Return
     urxvt
 
 alt + shift + d
-    dmenu_run
+    rofi -show run
+
+alt + d
+    rofi -show drun
+
+alt + Tab
+    bspc node next.local -f
+
+# focus or send to the given desktop
+alt + {_,shift + }{1-9,0}
+    bspc {desktop --focus,node -d} 'focused:^{1-9,10}'
+
+alt + {h,j,k,l}
+    bspwm_resize.sh {west, south, north, east}
+
+# close and kill
+alt + {_,shift + }c
+    bspc node -{c,k}
+
+alt + shift + e
+    bspc quit
+
+alt + shift + r
+    bspc wm -r
