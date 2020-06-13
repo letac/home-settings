@@ -12,14 +12,14 @@ set fileencoding=utf8
 let $NVIM_PYTHON_LOG_FILE="/home/strale/nvim_log"
 let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
 
-
+colorscheme jellybeans
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jimenezrick/vimerl'
-Plug 'deviantfero/wpgtk.vim'
+" Plug 'deviantfero/wpgtk.vim'
 
 " nerdtree {{{
 " Plug 'scrooloose/nerdtree'
@@ -35,6 +35,28 @@ function! MyCoc()
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use `[g` and `]g` to navigate diagnostics
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation.
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window.
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
 endfunction
 
 function! s:check_back_space() abort
@@ -47,40 +69,27 @@ call MyCoc()
 Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'airblade/vim-rooter'
 
+function! MyStartify()
+    Plug 'mhinz/vim-startify'
+    let g:startify_session_dir = '~/.config/nvim/session'    
+    let g:startify_lists = [
+                \ { 'type': 'files', 'header': ['   Files']},
+                \ { 'type': 'dir', 'header': ['   Current Directory '. getcwd()]},
+                \ { 'type': 'sessions', 'header': ['   Sessions']},
+                \ { 'type': 'bookmarks', 'header': ['   Bookmarks']}
+                \ ]
+    let g:startify_bookmarks = [
+                \ { 'n': '~/.config/nvim/init.vim' },
+                \ { 'b': '~/.config/bspwm/bspwmrc' },
+                \ { 's': '~/.config/sxhkd/sxhkdrc' },
+                \ ]
+endfunction
+call MyStartify()
+
 " status bar {{{
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 " }}}
-
-function! MyAle()
-    Plug 'w0rp/ale'
-
-    let g:ale_linters = { 'rust': ['rls', 'cargo']}
-    let g:ale_rust_cargo_check_all_targets = 0
-    let g:ale_rust_cargo_check_tests = 0
-    let g:ale_virtualtext_cursor = 1
-    let g:ale_rust_rls_config = {
-        \ 'rust': {
-            \ 'all_targets': 1,
-            \ 'build_on_save': 1,
-            \ 'clippy_preference': 'on'
-        \ }
-    \}
-    let g:ale_open_list = 1
-
-    highlight link ALEWarningSign Todo
-    highlight link ALEErrorSign WarningMsg
-    highlight link ALEVirtualTextWarning Todo
-    highlight link ALEVirtualTextInfo Todo
-    highlight link ALEVirtualTextError WarningMsg
-    highlight ALEError guibg=None
-    highlight ALEWarning guibg=None
-    let g:ale_sign_error = "✖"
-    let g:ale_sign_warning = "⚠"
-    let g:ale_sign_info = "i"
-    let g:ale_sign_hint = "➤" 
-endfunction
-call MyAle()
 
 " rust {{{
 Plug 'rust-lang/rust.vim'
@@ -98,36 +107,15 @@ Plug 'LnL7/vim-nix'
 
 " tagbar {{{
 Plug 'majutsushi/tagbar'
-autocmd VimEnter *.rs nested :TagbarOpen
+" autocmd VimEnter *.rs nested :TagbarOpen
+nnoremap <silent> <F9> :TagbarToggle<CR>
+let g:tagbar_width = 25
 " }}}
 
 " fzf {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " }}}
-
-" Plug 'ervandew/supertab'
-
-function! MyDeoplete()
-    Plug 'roxma/nvim-yarp'
-    if has('nvim')
-      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-      Plug 'Shougo/deoplete.nvim'
-      Plug 'roxma/nvim-yarp'
-      Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-    let g:deoplete#enable_at_startup = 1
-endfunction
-
-function! MyNcm2()
-    Plug 'ncm2/ncm2'
-    " Plug 'ncm2/ncm2-racer'
-    Plug 'ncm2/ncm2-bufword'
-    Plug 'ncm2/ncm2-path'
-
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-endfunction
 
 call plug#end()
 filetype plugin indent on
@@ -215,7 +203,7 @@ inoremap hg <Esc>
 inoremap kj <Esc>
 
 " tabs
-nnoremap <Tab> gt
+nnoremap <TAB> gt
 
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
