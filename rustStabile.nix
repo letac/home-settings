@@ -1,9 +1,10 @@
 with import <nixpkgs> {}; 
 let
-  myrust = (rustChannels.stable.rust.override { extensions = [ 
+  myrust = (rustChannels.stable.rust.override {
+    extensions = [ 
     "rust-src" 
-    "rls-preview"
     "rust-analysis"
+    "llvm-tools-preview"
   ]; });
 in
   myrust
