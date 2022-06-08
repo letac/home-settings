@@ -6,10 +6,14 @@ packer.init({
     package_root = util.join_paths(vim.fn.stdpath("data"), "site", "pack"),
 })
 
-packer.startup(function()
-    local use = use
+packer.startup(function(use)
     -- add you plugins here like:
     use("wbthomason/packer.nvim")
+
+    use({
+        "EdenEast/nightfox.nvim",
+        config = vim.cmd([[colorscheme nightfox]]),
+    })
 
     use({
         "neovim/nvim-lspconfig",
@@ -21,31 +25,38 @@ packer.startup(function()
         "hrsh7th/cmp-nvim-lua",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        config = require("lsp"),
     })
 
-    use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
+    use({
+        "jose-elias-alvarez/null-ls.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+        config = require("null_ls_config"),
+    })
 
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use({
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+        config = require("treesitter_config"),
+    })
     use("nvim-treesitter/nvim-treesitter-textobjects")
     use("nvim-treesitter/nvim-treesitter-refactor")
 
+    use({ "kyazdani42/nvim-web-devicons" })
     use({
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        config = require("lualine").setup(),
     })
 
-    use("mhinz/vim-startify")
+    use({
+        "mhinz/vim-startify",
+        config = require("startify"),
+    })
 
-    use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
-
-    use("EdenEast/nightfox.nvim")
+    use({
+        "nvim-telescope/telescope.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+        config = require("telescope_config"),
+    })
 end)
-
-require("lualine").setup()
-require("colors")
-
-require("null_ls_config")
-require("startify")
-require("telescope_config")
-require("treesitter_config")
-require("lsp")
