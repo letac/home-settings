@@ -25,19 +25,19 @@ packer.startup(function(use)
         "hrsh7th/cmp-nvim-lua",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        config = require("lsp"),
+        config = require("config.lsp"),
     })
 
     use({
         "jose-elias-alvarez/null-ls.nvim",
         requires = { "nvim-lua/plenary.nvim" },
-        config = require("null_ls_config"),
+        config = require("config.null_ls"),
     })
 
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
-        config = require("treesitter_config"),
+        config = require("config.treesitter"),
     })
     use("nvim-treesitter/nvim-treesitter-textobjects")
     use("nvim-treesitter/nvim-treesitter-refactor")
@@ -45,18 +45,20 @@ packer.startup(function(use)
     use({ "kyazdani42/nvim-web-devicons" })
     use({
         "nvim-lualine/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
-        config = require("lualine").setup(),
+        requires = {
+            { "kyazdani42/nvim-web-devicons", opt = true },
+        },
+        config = require("lualine").setup({}),
     })
 
     use({
         "mhinz/vim-startify",
-        config = require("startify"),
+        config = require("config.startify"),
     })
 
     use({
         "nvim-telescope/telescope.nvim",
         requires = { "nvim-lua/plenary.nvim" },
-        config = require("telescope_config"),
+        config = require("config.telescope"),
     })
 end)
