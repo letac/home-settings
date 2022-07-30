@@ -5,6 +5,7 @@ require("nvim-treesitter.configs").setup({
     highlight = {
         enable = true, -- false will disable the whole extension
     },
+
     incremental_selection = {
         enable = true,
         keymaps = {
@@ -15,6 +16,13 @@ require("nvim-treesitter.configs").setup({
         },
     },
     indent = {
+        enable = true,
+    },
+    rainbow = {
+        enable = true,
+        extended_mode = true,
+    },
+    playgroud = {
         enable = true,
     },
     textobjects = {
