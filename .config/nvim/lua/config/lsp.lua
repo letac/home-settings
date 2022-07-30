@@ -144,6 +144,7 @@ local on_attach_rust = function(client, bufnr)
     local keymap = vim.keymap.set
     local key_opts = { silent = true }
 
+    -- formatting is done by the null-ls
     client.resolved_capabilities.formatting = false
     client.resolved_capabilities.range_formatting = false
 
