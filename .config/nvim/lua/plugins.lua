@@ -6,6 +6,12 @@ require("packer").startup(function(use)
 
     use("EdenEast/nightfox.nvim")
 
+    -- Clojure
+    use("Olical/conjure")
+    use("tpope/vim-dispatch")
+    use("clojure-vim/vim-jack-in")
+    use("radenling/vim-dispatch-neovim")
+
     -- nvim-cmp
     use("hrsh7th/nvim-cmp")
     use("L3MON4D3/LuaSnip")

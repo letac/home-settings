@@ -1,8 +1,11 @@
 local null_ls = require("null-ls")
 
+local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
 local source = {
+    diagnostics.clj_kondo,
+
     formatting.rustfmt.with({
         extra_args = function(params)
             local cargo_toml = params.root .. "/" .. "Cargo.toml"
@@ -27,6 +30,8 @@ local source = {
     formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
     }),
+
+    formatting.zprint,
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
