@@ -82,8 +82,8 @@ local nvim_lsp = require("lspconfig")
 local on_attach = function(client, bufnr)
     require("lsp_signature").on_attach()
 
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     local opts = { noremap = true, silent = true }
@@ -115,11 +115,10 @@ local on_attach = function(client, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Enable the following language servers
-local servers = { "rnix" }
+local servers = { "rnix", "clojure_lsp", "elmls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup({
         on_attach = on_attach,
@@ -145,8 +144,8 @@ local on_attach_rust = function(client, bufnr)
     local key_opts = { silent = true }
 
     -- formatting is done by the null-ls
-    client.resolved_capabilities.formatting = false
-    client.resolved_capabilities.range_formatting = false
+    client.server_capabilities.formatting = false
+    client.server_capabilities.range_formatting = false
 
     keymap("n", "<leader>rh", "<cmd>RustSetInlayHints<Cr>", key_opts)
     keymap("n", "<leader>rhd", "<cmd>RustDisableInlayHints<Cr>", key_opts)
